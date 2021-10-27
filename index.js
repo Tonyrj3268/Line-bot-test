@@ -106,7 +106,7 @@ function handleText(message, replyToken, source) {
         return
         JSON.stringify({
         replyToken: replyToken,
-        flex:[
+        flex messages:[
            {
              "type": "bubble",
              "hero": {
