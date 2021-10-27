@@ -21,6 +21,7 @@ app.post("/webhook", (req, res) =>{
             console.error(err);
             res.status(500).end();
         });
+        })
   /*res.send("HTTP POST request sent to the webhook URL!")
   handleEvent(req.body.events[0])
   if (req.body.events[0].type === "message") {
