@@ -22,6 +22,7 @@ app.post("/webhook", (req, res) =>{
             res.status(500).end();
         });
         })*/
+        console.log("123")
   res.send("HTTP POST request sent to the webhook URL!")
   if (req.body.events[0].type === "message") {
       // Message data, must be stringified
