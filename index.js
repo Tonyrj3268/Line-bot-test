@@ -3,24 +3,7 @@ const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
-var linebot = require('linebot');
-var bot = linebot({
-  channelId: '1656571928',
-  channelSecret: 'cfda70340cba17a1cfa203c50044b3fb',
-  channelAccessToken: 'CtY96gkFaHKWVH7oTGt0r3lxJnoCueluKV+2OFYF9UXBAfFCdalir0tqsbQeUjLgUwSr900bhB9yOqMDfK+/d6JI2TKpdDt3zNubyizUBdeSi24u1txOrSNRr7HER7QHhifdgi/0yc+uwp+FLPQnwwdB04t89/1O/w1cDnyilFU='
-});
 
-bot.on('message', function (event) {
-    // event.message.text是使用者傳給bot的訊息
-    // 準備要回傳的內容
-    var replyMsg = `Hello你剛才說的是:${event.message.text}`;
-    // 透過event.reply(要回傳的訊息)方法將訊息回傳給使用者
-    event.reply(replyMsg).then(function (data) {
-        // 當訊息成功回傳後的處理
-    }).catch(function (error) {
-        // 當訊息回傳失敗後的處理
-    });
-});
 app.use(express.json())
 app.use(express.urlencoded({
   extended: true
@@ -36,21 +19,53 @@ app.post("/webhook", (req, res) =>{
   if (req.body.events[0].type === "message") {
       // Message data, must be stringified
       const dataString = JSON.stringify(
-      handleEvent(event)
-      /*{
+      {
         replyToken: req.body.events[0].replyToken,
         messages: [
           {
             "type": "text",
             "text": "Hello, user"
           },
-          {
-            "type": "text",
-            "text": "May I help you?"
-          }
         ]
-      }*/)}}
+      }
+      )}
 
+      // Request header
+      const headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + TOKEN
+      }
+
+      // Options to pass into the request
+      const webhookOptions = {
+        "hostname": "api.line.me",
+        "path": "/v2/bot/message/reply",
+        "method": "POST",
+        "headers": headers,
+        "body": dataString
+      }
+
+      // Define request
+      const request = https.request(webhookOptions, (res) => {
+        res.on("data", (d) => {
+          process.stdout.write(d)
+        })
+      })
+
+      // Handle error
+      request.on("error", (err) => {
+        console.error(err)
+      })
+
+      // Send data
+      request.write(dataString)
+      request.end()
+})
+
+
+app.listen(PORT, () => {
+  console.log("Example app listening at http://localhost:${PORT}")
+})
 function handleEvent(event){
 /*if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
     return console.log('Test hook recieved: ' + JSON.stringify(event.message));
@@ -256,40 +271,3 @@ function handleText(message, replyToken, source) {
       return client.replyMessage(replyToken, echo);
   }
 }
-
-      // Request header
-      const headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + TOKEN
-      }
-
-      // Options to pass into the request
-      const webhookOptions = {
-        "hostname": "api.line.me",
-        "path": "/v2/bot/message/reply",
-        "method": "POST",
-        "headers": headers,
-        "body": dataString
-      }
-
-      // Define request
-      const request = https.request(webhookOptions, (res) => {
-        res.on("data", (d) => {
-          process.stdout.write(d)
-        })
-      })
-
-      // Handle error
-      request.on("error", (err) => {
-        console.error(err)
-      })
-
-      // Send data
-      request.write(dataString)
-      request.end()
-    }
-})
-
-app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`)
-})
