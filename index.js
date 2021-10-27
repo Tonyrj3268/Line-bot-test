@@ -103,10 +103,9 @@ function handleText(message, replyToken, source) {
           }
         ]});
     case "溫泉":
-        return
-        JSON.stringify({
+        return JSON.stringify({
         replyToken: replyToken,
-        flex messages:[
+        replyMessage:[
            {
              "type": "bubble",
              "hero": {
@@ -256,7 +255,7 @@ function handleText(message, replyToken, source) {
                ],
                "flex": 0
              }
-           }]});
+           ]});
 
     default:
       console.log(`Echo message to ${replyToken}: ${message.text}`);
