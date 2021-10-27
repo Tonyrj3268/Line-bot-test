@@ -25,7 +25,9 @@ app.post("/webhook", (req, res) =>{
   res.send("HTTP POST request sent to the webhook URL!")
   if (req.body.events[0].type === "message") {
       // Message data, must be stringified
-      const dataString = JSON.stringify({
+      const dataString = JSON.stringify(
+      handleEvent(req.body.events[0])
+      /*{
         replyToken: req.body.events[0].replyToken,
         messages: [
           {
@@ -37,7 +39,7 @@ app.post("/webhook", (req, res) =>{
             "text": "May I help you?"
           }
         ]
-      })
+      }*/)
 /*function handleEvent(event) {
     if (event.replyToken === "00000000000000000000000000000000" || event.replyToken === "ffffffffffffffffffffffffffffffff")
         return Promise.resolve(null);
@@ -149,12 +151,12 @@ app.post("/webhook", (req, res) =>{
 
     // use reply API
     return client.replyMessage(event.replyToken, echo);
-}
-function handlerEvent(event){
-if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
+}*/
+function handleEvent(event){
+/*if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
     return console.log('Test hook recieved: ' + JSON.stringify(event.message));
   }
-  console.log(`User ID: ${event.source.userId}`)
+  console.log(`User ID: ${event.source.userId}`)*/
   console.log('123')
   switch(event.type){
   case "message":
@@ -185,7 +187,7 @@ if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
 
 function handleText(message, replyToken, source) {
   switch (message.text) {
-    case '公車':
+    case "公車":
         return client.replyMessage(replyToken, [
           {
             type: 'image',
@@ -193,7 +195,7 @@ function handleText(message, replyToken, source) {
             previewImageUrl: 'https://developers.line.biz/media/messaging-api/messages/image-167efb33.png'
           }
         ]);
-    case '溫泉':
+    /*case '溫泉':
         return client.replyMessage(replyToken,[
         {
                                                   "type": "bubble",
@@ -344,7 +346,7 @@ function handleText(message, replyToken, source) {
                                                     ],
                                                     "flex": 0
                                                   }
-                                                }])
+                                                }])*/
 
     default:
       console.log(`Echo message to ${replyToken}: ${message.text}`);
@@ -355,7 +357,7 @@ function handleText(message, replyToken, source) {
       return client.replyMessage(replyToken, echo);
   }
 }
-*/
+
       // Request header
       const headers = {
         "Content-Type": "application/json",
