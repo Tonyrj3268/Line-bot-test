@@ -255,7 +255,7 @@ function handleText(message, replyToken, source) {
                                                     ],
                                                     "flex": 0
                                                   }
-                                                }])
+                                                }]);
 
     default:
       console.log(`Echo message to ${replyToken}: ${message.text}`);
