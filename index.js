@@ -18,8 +18,8 @@ app.post("/webhook", function(req, res) {
 
   if (req.body.events[0].type === "message") {
       // Message data, must be stringified
-      handleEvent(req.body.events[0]);
       const dataString = JSON.stringify({
+      replyToken: req.body.events[0].replyToken,
       handleEvent(req.body.events[0]);
         /*replyToken: req.body.events[0].replyToken,
         messages: [
