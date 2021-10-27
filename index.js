@@ -104,8 +104,8 @@ function handleText(message, replyToken, source) {
   switch (message.text) {
     case "公車":
         return JSON.stringify({
-        handleEvent(req.body.events[0]),
-        message:[
+        replyToken: replyToken,
+        messages:[
           {
             "type": "image",
             "originalContentUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg',
