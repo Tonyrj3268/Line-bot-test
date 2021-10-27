@@ -14,22 +14,19 @@ app.get("/", (req, res) => {
 })
 
 app.post("/webhook", (req, res) =>{
-        Promise
+        /*Promise
         .all(req.body.events.map(handleEvent))
         .then((result) => res.json(result))
         .catch((err) => {
             console.error(err);
             res.status(500).end();
         });
-        })
-  /*res.send("HTTP POST request sent to the webhook URL!")
-  handleEvent(req.body.events[0])
+        })*/
+  res.send("HTTP POST request sent to the webhook URL!")
   if (req.body.events[0].type === "message") {
       // Message data, must be stringified
       const dataString = JSON.stringify({
-      replyToken: req.body.events[0].replyToken,
-      message:handleEvent(req.body.events[0]);
-        /*replyToken: req.body.events[0].replyToken,
+        replyToken: req.body.events[0].replyToken,
         messages: [
           {
             "type": "text",
@@ -39,9 +36,9 @@ app.post("/webhook", (req, res) =>{
             "type": "text",
             "text": "May I help you?"
           }
-        ]*/
+        ]
       })
-function handleEvent(event) {
+/*function handleEvent(event) {
     if (event.replyToken === "00000000000000000000000000000000" || event.replyToken === "ffffffffffffffffffffffffffffffff")
         return Promise.resolve(null);
     if (event.type !== 'message' || event.message.type !== 'text') {
