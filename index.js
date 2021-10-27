@@ -255,6 +255,7 @@ function handleText(message, replyToken, source) {
                ],
                "flex": 0
              }
+             }
            ]});
 
     default:
