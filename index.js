@@ -20,16 +20,6 @@ app.post("/webhook", function(req, res) {
      // Message data, must be stringified
      const dataString = handleEvent(req.body.events[0]);
 
-     /*JSON.stringify({
-       /*replyToken: req.body.events[0].replyToken,
-       messages: [
-         {
-           "type": "text",
-           "text": "Hello, user"
-         }
-       ]
-     })*/
-
       // Request header
       const headers = {
         "Content-Type": "application/json",
@@ -109,23 +99,25 @@ function handleText(message, replyToken, source) {
           {
             "type": "image",
             "originalContentUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg',
-            "previewImageUrl": 'https://developers.line.biz/media/messaging-api/messages/image-167efb33.png'
+            "previewImageUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg'
           }
         ]});
-    /*case '溫泉':
-        return client.replyMessage(replyToken,[
-        {
-                                                  "type": "bubble",
-                                                  "hero": {
-                                                    "type": "image",
-                                                    "url": "https://storage.googleapis.com/smiletaiwan-cms-cwg-tw/article/201901/article-5c3bfec68ea43.jpg",
-                                                    "size": "full",
-                                                    "aspectRatio": "20:13",
-                                                    "aspectMode": "cover",
-                                                    "action": {
-                                                      "type": "uri",
-                                                      "uri": "http://linecorp.com/"
-                                                    }
+    case '溫泉':
+        return JSON.stringify({
+        replyToken: replyToken,
+        messages:[
+           {
+             "type": "bubble",
+             "hero": {
+             "type": "image",
+             "url": "https://storage.googleapis.com/smiletaiwan-cms-cwg-tw/article/201901/article-5c3bfec68ea43.jpg",
+             "size": "full",
+             "aspectRatio": "20:13",
+             "aspectMode": "cover",
+             "action": {
+             "type": "uri",
+             "uri": "http://linecorp.com/"
+             }
                                                   },
                                                   "body": {
                                                     "type": "box",
@@ -263,7 +255,7 @@ function handleText(message, replyToken, source) {
                                                     ],
                                                     "flex": 0
                                                   }
-                                                }])*/
+                                                }])
 
     default:
       console.log(`Echo message to ${replyToken}: ${message.text}`);
