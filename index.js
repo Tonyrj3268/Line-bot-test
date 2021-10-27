@@ -13,6 +13,22 @@ app.get("/", (req, res) => {
   res.sendStatus(200)
 })
 
+var linebot = require('linebot');
+
+var bot = linebot({
+  channelId: CHANNEL_ID,
+  channelSecret: CHANNEL_SECRET,
+  channelAccessToken: CHANNEL_ACCESS_TOKEN
+});
+
+bot.on('message', function (event) {
+  event.reply(event.message.text).then(handleEvent(req.body.events[0])).catch(function (error) {
+    // error
+  });
+});
+
+bot.listen('/linewebhook', 3000);
+
 app.post("/webhook", function(req, res) {
    res.send("HTTP POST request sent to the webhook URL!")
    // If the user sends a message to your bot, send a reply message
@@ -106,7 +122,7 @@ function handleText(message, replyToken, source) {
     case "溫泉":
         return JSON.stringify({
         replyToken: replyToken,
-        messages:[
+        flex:[
            {
              "type": "bubble",
              "hero": {
