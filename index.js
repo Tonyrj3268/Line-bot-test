@@ -3,13 +3,24 @@ const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
-
+var linebot = require('linebot');
 var bot = linebot({
   channelId: '1656571928',
   channelSecret: 'cfda70340cba17a1cfa203c50044b3fb',
   channelAccessToken: 'CtY96gkFaHKWVH7oTGt0r3lxJnoCueluKV+2OFYF9UXBAfFCdalir0tqsbQeUjLgUwSr900bhB9yOqMDfK+/d6JI2TKpdDt3zNubyizUBdeSi24u1txOrSNRr7HER7QHhifdgi/0yc+uwp+FLPQnwwdB04t89/1O/w1cDnyilFU='
 });
 
+bot.on('message', function (event) {
+    // event.message.text是使用者傳給bot的訊息
+    // 準備要回傳的內容
+    var replyMsg = `Hello你剛才說的是:${event.message.text}`;
+    // 透過event.reply(要回傳的訊息)方法將訊息回傳給使用者
+    event.reply(replyMsg).then(function (data) {
+        // 當訊息成功回傳後的處理
+    }).catch(function (error) {
+        // 當訊息回傳失敗後的處理
+    });
+});
 app.use(express.json())
 app.use(express.urlencoded({
   extended: true
@@ -20,14 +31,6 @@ app.get("/", (req, res) => {
 })
 
 app.post("/webhook", (req, res) =>{
-        /*Promise
-        .all(req.body.events.map(handleEvent))
-        .then((result) => res.json(result))
-        .catch((err) => {
-            console.error(err);
-            res.status(500).end();
-        });
-        })*/
         console.log("123")
   res.send("HTTP POST request sent to the webhook URL!")
   if (req.body.events[0].type === "message") {
