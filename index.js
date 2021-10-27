@@ -151,10 +151,10 @@ app.post("/webhook", (req, res) =>{
     return client.replyMessage(event.replyToken, echo);
 }
 function handlerEvent(event){
-/*if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
+if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
     return console.log('Test hook recieved: ' + JSON.stringify(event.message));
   }
-  console.log(`User ID: ${event.source.userId}`)*/
+  console.log(`User ID: ${event.source.userId}`)
   console.log('123')
   switch(event.type){
   case "message":
@@ -355,7 +355,7 @@ function handleText(message, replyToken, source) {
       return client.replyMessage(replyToken, echo);
   }
 }
-
+*/
       // Request header
       const headers = {
         "Content-Type": "application/json",
