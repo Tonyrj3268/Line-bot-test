@@ -4,6 +4,12 @@ const app = express()
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
 
+var bot = linebot({
+  channelId: '1656571928',
+  channelSecret: 'cfda70340cba17a1cfa203c50044b3fb',
+  channelAccessToken: 'CtY96gkFaHKWVH7oTGt0r3lxJnoCueluKV+2OFYF9UXBAfFCdalir0tqsbQeUjLgUwSr900bhB9yOqMDfK+/d6JI2TKpdDt3zNubyizUBdeSi24u1txOrSNRr7HER7QHhifdgi/0yc+uwp+FLPQnwwdB04t89/1O/w1cDnyilFU='
+});
+
 app.use(express.json())
 app.use(express.urlencoded({
   extended: true
@@ -27,7 +33,7 @@ app.post("/webhook", (req, res) =>{
   if (req.body.events[0].type === "message") {
       // Message data, must be stringified
       const dataString = JSON.stringify(
-      handleEvent(req.body.events[0])
+      handleEvent(event)
       /*{
         replyToken: req.body.events[0].replyToken,
         messages: [
@@ -41,118 +47,7 @@ app.post("/webhook", (req, res) =>{
           }
         ]
       }*/)}}
-/*function handleEvent(event) {
-    if (event.replyToken === "00000000000000000000000000000000" || event.replyToken === "ffffffffffffffffffffffffffffffff")
-        return Promise.resolve(null);
-    if (event.type !== 'message' || event.message.type !== 'text') {
-        // ignore non-text-message event
-        return Promise.resolve(null);
-    }
-    if (event.message.text === '測試1') {
-        return client.replyMessage(event.replyToken, [
-            {
-                type: 'sticker',
-                packageId: '1',
-                stickerId: '1'
-            },
-            {
-                type: 'image',
-                originalContentUrl: 'https://developers.line.biz/media/messaging-api/messages/image-full-04fbba55.png',
-                previewImageUrl: 'https://developers.line.biz/media/messaging-api/messages/image-167efb33.png'
-            },
-            {
-                type: 'video',
-                originalContentUrl: 'https://www.sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4',
-                previewImageUrl: 'https://www.sample-videos.com/img/Sample-jpg-image-50kb.jpg'
-            },
-            {
-                type: 'audio',
-                originalContentUrl: 'https://www.sample-videos.com/audio/mp3/crowd-cheering.mp3',
-                duration: '27000'
-            },
-            {
-                type: 'location',
-                title: 'my location',
-                address: "〒150-0002 東京都渋谷区渋谷２丁目２１−１",
-                latitude: 35.65910807942215,
-                longitude: 139.70372892916203
-            }
-        ]);
-    }
-    if (event.message.text === '測試2') {
-        return client.replyMessage(event.replyToken, [
-            {
-                type: 'imagemap',
-                baseUrl: 'https://github.com/line/line-bot-sdk-nodejs/raw/master/examples/kitchensink/static/rich',
-                altText: 'Imagemap alt text',
-                baseSize: { width: 1040, height: 1040 },
-                actions: [
-                    { area: { x: 0, y: 0, width: 520, height: 520 }, type: 'uri', linkUri: 'https://store.line.me/family/manga/en' },
-                    { area: { x: 520, y: 0, width: 520, height: 520 }, type: 'uri', linkUri: 'https://store.line.me/family/music/en' },
-                    { area: { x: 0, y: 520, width: 520, height: 520 }, type: 'uri', linkUri: 'https://store.line.me/family/play/en' },
-                    { area: { x: 520, y: 520, width: 520, height: 520 }, type: 'message', text: 'URANAI!' },
-                ],
-                video: {
-                    originalContentUrl: 'https://github.com/line/line-bot-sdk-nodejs/raw/master/examples/kitchensink/static/imagemap/video.mp4',
-                    previewImageUrl: 'https://github.com/line/line-bot-sdk-nodejs/raw/master/examples/kitchensink/static/imagemap/preview.jpg',
-                    area: {
-                        x: 280,
-                        y: 385,
-                        width: 480,
-                        height: 270,
-                    },
-                    externalLink: {
-                        linkUri: 'https://line.me',
-                        label: 'LINE'
-                    }
-                },
-            },
-            {
-                type: 'template',
-                altText: 'Buttons alt text',
-                template: {
-                    type: 'buttons',
-                    thumbnailImageUrl: 'https://github.com/line/line-bot-sdk-nodejs/raw/master/examples/kitchensink/static/buttons/1040.jpg',
-                    title: 'My button sample',
-                    text: 'Hello, my button',
-                    actions: [
-                        { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
-                        { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' },
-                        { label: '言 hello2', type: 'postback', data: 'hello こんにちは', text: 'hello こんにちは' },
-                        { label: 'Say message', type: 'message', text: 'Rice=米' },
-                    ],
-                },
-            },
-            {
-                type: 'flex',
-                altText: 'this is a flex message',
-                contents: {
-                    type: 'bubble',
-                    body: {
-                        type: 'box',
-                        layout: 'vertical',
-                        contents: [
-                            {
-                                type: 'text',
-                                text: 'hello'
-                            },
-                            {
-                                type: 'text',
-                                text: 'world'
-                            }
-                        ]
-                    }
-                }
-            }
-        ]);
-    }
 
-    // create a echoing text message
-    const echo = { type: 'text', text: event.message.text };
-
-    // use reply API
-    return client.replyMessage(event.replyToken, echo);
-}*/
 function handleEvent(event){
 /*if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
     return console.log('Test hook recieved: ' + JSON.stringify(event.message));
