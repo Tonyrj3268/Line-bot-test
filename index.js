@@ -18,17 +18,17 @@ app.post("/webhook", function(req, res) {
    // If the user sends a message to your bot, send a reply message
    if (req.body.events[0].type === "message") {
      // Message data, must be stringified
-     const dataString = JSON.stringify({
-       handleEvent(req.body.events[0])
+     const dataString = handleEvent(req.body.events[0]);
+
+     /*JSON.stringify({
        /*replyToken: req.body.events[0].replyToken,
-       messages: )
-       [
+       messages: [
          {
            "type": "text",
            "text": "Hello, user"
          }
-       ]*/
-     })
+       ]
+     })*/
 
       // Request header
       const headers = {
@@ -103,13 +103,15 @@ function handleEvent(event){
 function handleText(message, replyToken, source) {
   switch (message.text) {
     case "公車":
-        return client.replyMessage(replyToken, [
+        return JSON.stringify({
+        handleEvent(req.body.events[0]),
+        message:[
           {
-            type: 'image',
-            originalContentUrl: 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg',
-            previewImageUrl: 'https://developers.line.biz/media/messaging-api/messages/image-167efb33.png'
+            "type": "image",
+            "originalContentUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg',
+            "previewImageUrl": 'https://developers.line.biz/media/messaging-api/messages/image-167efb33.png'
           }
-        ]);
+        ]});
     /*case '溫泉':
         return client.replyMessage(replyToken,[
         {
