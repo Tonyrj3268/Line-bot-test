@@ -102,7 +102,7 @@ function handleText(message, replyToken, source) {
             "previewImageUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg'
           }
         ]});
-    /*case '溫泉':
+    case '溫泉':
         return JSON.stringify({
         replyToken: replyToken,
         messages:[
@@ -118,7 +118,7 @@ function handleText(message, replyToken, source) {
              "type": "uri",
              "uri": "http://linecorp.com/"
              }
-                                                  },
+             },
                                                   "body": {
                                                     "type": "box",
                                                     "layout": "vertical",
@@ -255,7 +255,7 @@ function handleText(message, replyToken, source) {
                                                     ],
                                                     "flex": 0
                                                   }
-                                                }]);*/
+                                                }]});
 
     default:
       console.log(`Echo message to ${replyToken}: ${message.text}`);
