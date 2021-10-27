@@ -13,9 +13,16 @@ app.get("/", (req, res) => {
   res.sendStatus(200)
 })
 
-app.post("/webhook", function(req, res) {
-  res.send("HTTP POST request sent to the webhook URL!")
-  handleEvent(req.body.events[0]);
+app.post("/webhook", (req, res) =>{
+        Promise
+        .all(req.body.events.map(handleEvent))
+        .then((result) => res.json(result))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).end();
+        });
+  /*res.send("HTTP POST request sent to the webhook URL!")
+  handleEvent(req.body.events[0])
   if (req.body.events[0].type === "message") {
       // Message data, must be stringified
       const dataString = JSON.stringify({
@@ -35,11 +42,11 @@ app.post("/webhook", function(req, res) {
       })
 
 function handleEvent(event){
-if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
+/*if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
     return console.log('Test hook recieved: ' + JSON.stringify(event.message));
   }
-  console.log(`User ID: ${event.source.userId}`)
-
+  console.log(`User ID: ${event.source.userId}`)*/
+  console.log('123')
   switch(event.type){
   case "message":
   const message = event.message;
