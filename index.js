@@ -100,12 +100,17 @@ function handleText(message, replyToken, source) {
             "type": "image",
             "originalContentUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg',
             "previewImageUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg'
-          }
+          },
+          {
+                      "type": "image",
+                      "originalContentUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg',
+                      "previewImageUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg'
+                    }
         ]});
     case "溫泉":
         return JSON.stringify({
         replyToken: replyToken,
-        replyMessage:[
+        flex:[
            {
              "type": "bubble",
              "hero": {
