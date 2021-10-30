@@ -1,4 +1,4 @@
-const https = require("https")
+/*const https = require("https")
 const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -57,7 +57,24 @@ app.post("/webhook", function(req, res) {
 app.listen(PORT, () => {
   console.log("Example app listening at http://localhost:${PORT}")
 })
+*/
 
+const line = require('@line/bot-sdk')
+
+const config = {
+  channelAccessToken: 'CtY96gkFaHKWVH7oTGt0r3lxJnoCueluKV+2OFYF9UXBAfFCdalir0tqsbQeUjLgUwSr900bhB9yOqMDfK+/d6JI2TKpdDt3zNubyizUBdeSi24u1txOrSNRr7HER7QHhifdgi/0yc+uwp+FLPQnwwdB04t89/1O/w1cDnyilFU=',
+  channelSecret: 'cfda70340cba17a1cfa203c50044b3fb'
+}
+
+const client = new line.Client(config)
+
+router.post('/webhook', line.middleware(config), async (req, res, next) => {
+  console.log(req.body)
+  req.body.events.map(event => {
+    messageHandle(event)
+  })
+  res.sendStatus(200);
+})
 function messageHandle(event) {
   switch(event.type) {
     case 'message':
