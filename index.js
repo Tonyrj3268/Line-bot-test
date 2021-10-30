@@ -68,7 +68,7 @@ const config = {
 
 const client = new line.Client(config)
 
-router.post('/webhook', line.middleware(config), async (req, res, next) => {
+router.post('/api/webhook', line.middleware(config), async (req, res, next) => {
   console.log(req.body)
   req.body.events.map(event => {
     messageHandle(event)
