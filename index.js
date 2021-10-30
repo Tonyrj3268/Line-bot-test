@@ -62,7 +62,7 @@ app.listen(PORT, () => {
 const line = require('@line/bot-sdk')
 
 const config = {
-  channelAccessToken: 'Vc4YnqFX8+KktQ7xXf9Z+e1s/xI0tVoNpIwpvmA+KpS0nSbzJ9gaK+Zr1Yb0KfY1UwSr900bhB9yOqMDfK+/d6JI2TKpdDt3zNubyizUBde+SLXrpJSHTt/BoQBY/FDBtmSGQVP0kk+gwUm0RsdutQdB04t89/1O/w1cDnyilFU=',
+  channelAccessToken: 'QLecjnOI/Q1bJQCt7yvpq8jhqhDyGtQ32uuUjsdwWYzKRa5qOG6UKB2xeN+PU95TUwSr900bhB9yOqMDfK+/d6JI2TKpdDt3zNubyizUBdcqf2i2/+LJ68bBDIUgr/nj1/8y3MYh6VfYpy2BvPDJ/QdB04t89/1O/w1cDnyilFU=',
   channelSecret: 'cfda70340cba17a1cfa203c50044b3fb'
 }
 
