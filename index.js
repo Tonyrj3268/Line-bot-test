@@ -13,28 +13,12 @@ app.get("/", (req, res) => {
   res.sendStatus(200)
 })
 
-var linebot = require('linebot');
-
-var bot = linebot({
-  channelId: '1656571928',
-  channelSecret: 'cfda70340cba17a1cfa203c50044b3fb',
-  channelAccessToken: 'CtY96gkFaHKWVH7oTGt0r3lxJnoCueluKV+2OFYF9UXBAfFCdalir0tqsbQeUjLgUwSr900bhB9yOqMDfK+/d6JI2TKpdDt3zNubyizUBdeSi24u1txOrSNRr7HER7QHhifdgi/0yc+uwp+FLPQnwwdB04t89/1O/w1cDnyilFU='
-});
-
-bot.on('message', function (event) {
-  event.reply(event.message.text).then(handleEvent(req.body.events[0])).catch(function (error) {
-    // error
-  });
-});
-
-bot.listen('/linewebhook', 3000);
-
 app.post("/webhook", function(req, res) {
    res.send("HTTP POST request sent to the webhook URL!")
    // If the user sends a message to your bot, send a reply message
    if (req.body.events[0].type === "message") {
      // Message data, must be stringified
-     const dataString = handleEvent(req.body.events[0]);
+     const dataString = messageHandle(req.body.events[0]);
 
       // Request header
       const headers = {
@@ -73,7 +57,178 @@ app.post("/webhook", function(req, res) {
 app.listen(PORT, () => {
   console.log("Example app listening at http://localhost:${PORT}")
 })
-function handleEvent(event){
+
+function messageHandle(event) {
+  switch(event.type) {
+    case 'message':
+      // 檢查第一個字元是否為問號，且帶有 '-‘當作觸發機器人的條件
+        if (message.text=='溫泉') {
+          client.replyMessage(event.replyToken, {
+                         "type": "bubble",
+                         "hero": {
+                           "type": "image",
+                           "url": "https://storage.googleapis.com/smiletaiwan-cms-cwg-tw/article/201901/article-5c3bfec68ea43.jpg",
+                           "size": "full",
+                           "aspectRatio": "20:13",
+                           "aspectMode": "cover",
+                           "action": {
+                             "type": "uri",
+                             "uri": "http://linecorp.com/"
+                           }
+                         },
+                         "body": {
+                           "type": "box",
+                           "layout": "vertical",
+                           "contents": [
+                             {
+                               "type": "text",
+                               "text": "寶來溫泉",
+                               "weight": "bold",
+                               "size": "xl"
+                             },
+                             {
+                               "type": "box",
+                               "layout": "baseline",
+                               "margin": "md",
+                               "contents": [
+                                 {
+                                   "type": "icon",
+                                   "size": "sm",
+                                   "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+                                 },
+                                 {
+                                   "type": "icon",
+                                   "size": "sm",
+                                   "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+                                 },
+                                 {
+                                   "type": "icon",
+                                   "size": "sm",
+                                   "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+                                 },
+                                 {
+                                   "type": "icon",
+                                   "size": "sm",
+                                   "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+                                 },
+                                 {
+                                   "type": "icon",
+                                   "size": "sm",
+                                   "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
+                                 },
+                                 {
+                                   "type": "text",
+                                   "text": "4.0",
+                                   "size": "sm",
+                                   "color": "#999999",
+                                   "margin": "md",
+                                   "flex": 0
+                                 }
+                               ]
+                             },
+                             {
+                               "type": "box",
+                               "layout": "vertical",
+                               "margin": "lg",
+                               "spacing": "sm",
+                               "contents": [
+                                 {
+                                   "type": "box",
+                                   "layout": "baseline",
+                                   "spacing": "sm",
+                                   "contents": [
+                                     {
+                                       "type": "text",
+                                       "text": "Place",
+                                       "color": "#aaaaaa",
+                                       "size": "sm",
+                                       "flex": 1
+                                     },
+                                     {
+                                       "type": "text",
+                                       "text": "Kaohsiung Six-turtle",
+                                       "wrap": true,
+                                       "color": "#666666",
+                                       "size": "sm",
+                                       "flex": 5
+                                     }
+                                   ]
+                                 },
+                                 {
+                                   "type": "box",
+                                   "layout": "baseline",
+                                   "spacing": "sm",
+                                   "contents": [
+                                     {
+                                       "type": "text",
+                                       "text": "Time",
+                                       "color": "#aaaaaa",
+                                       "size": "sm",
+                                       "flex": 1
+                                     },
+                                     {
+                                       "type": "text",
+                                       "text": "10:00 - 23:00",
+                                       "wrap": true,
+                                       "color": "#666666",
+                                       "size": "sm",
+                                       "flex": 5
+                                     }
+                                   ]
+                                 }
+                               ]
+                             }
+                           ]
+                         },
+                         "footer": {
+                           "type": "box",
+                           "layout": "vertical",
+                           "spacing": "sm",
+                           "contents": [
+                             {
+                               "type": "button",
+                               "style": "link",
+                               "height": "sm",
+                               "action": {
+                                 "type": "uri",
+                                 "label": "CALL",
+                                 "uri": "https://linecorp.com"
+                               }
+                             },
+                             {
+                               "type": "button",
+                               "style": "link",
+                               "height": "sm",
+                               "action": {
+                                 "type": "uri",
+                                 "label": "WEBSITE",
+                                 "uri": "https://smiletaiwan.cw.com.tw/article/1327"
+                               }
+                             },
+                             {
+                               "type": "spacer",
+                               "size": "sm"
+                             }
+                           ],
+                           "flex": 0
+                         }
+          })
+          .then(res => console.log(res))
+          .catch(e => console.log(e.originalError.response.data.details))
+      }
+      else if(message.text==公車){
+       client.replyMessage(event.replyToken, {
+                                                         "type": "image",
+                                                         "originalContentUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg',
+                                                         "previewImageUrl": 'https://kbus.com.tw/upload/ckeditor/images/%E7%9B%B4-E25-1100308.jpg'
+                                                       }
+                )
+                .then(res => console.log(res))
+                .catch(e => console.log(e.originalError.response.data.details))
+      }
+  }
+}
+function handlelEvent(event){
 /*if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
     return console.log('Test hook recieved: ' + JSON.stringify(event.message));
   }
@@ -122,7 +277,7 @@ function handleText(message, replyToken, source) {
     case "溫泉":
         return JSON.stringify({
         replyToken: replyToken,
-        flex:[
+        messages:[
            {
              "type": "bubble",
              "hero": {
