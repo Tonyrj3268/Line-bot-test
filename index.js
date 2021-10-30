@@ -1,4 +1,4 @@
-/*const https = require("https")
+const https = require("https")
 const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -18,7 +18,7 @@ app.post("/webhook", function(req, res) {
    // If the user sends a message to your bot, send a reply message
    if (req.body.events[0].type === "message") {
      // Message data, must be stringified
-     const dataString = messageHandle(req.body.events[0]);
+     const dataString = handlelEvent(req.body.events[0]);
 
       // Request header
       const headers = {
@@ -57,9 +57,9 @@ app.post("/webhook", function(req, res) {
 app.listen(PORT, () => {
   console.log("Example app listening at http://localhost:${PORT}")
 })
-*/
 
-const line = require('@line/bot-sdk')
+
+/*const line = require('@line/bot-sdk')
 
 const config = {
   channelAccessToken: 'QLecjnOI/Q1bJQCt7yvpq8jhqhDyGtQ32uuUjsdwWYzKRa5qOG6UKB2xeN+PU95TUwSr900bhB9yOqMDfK+/d6JI2TKpdDt3zNubyizUBdcqf2i2/+LJ68bBDIUgr/nj1/8y3MYh6VfYpy2BvPDJ/QdB04t89/1O/w1cDnyilFU=',
@@ -74,7 +74,7 @@ router.post('/api/webhook', line.middleware(config), async (req, res, next) => {
     messageHandle(event)
   })
   res.sendStatus(200);
-})
+})*/
 function messageHandle(event) {
   switch(event.type) {
     case 'message':
